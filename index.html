@@ -8,7 +8,10 @@
 </head>
 <body ng-app="spiral">
 
-<div ng-include="'app/main.html'" ng-controller="MainController"></div>
+<div id="config-form">
+    <input placeholder="Upper range" type="number" ng-model="range"/>
+</div>
+<div ng-include="'app/main.html'" class="flex-container" ng-controller="MainController"></div>
 
 <!-- Angular Deps -->
 <script src="/libs/angular/angular.min.js"></script>
