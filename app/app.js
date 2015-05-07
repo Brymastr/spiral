@@ -1,7 +1,8 @@
 var app = angular.module('spiral', []);
 
 app.controller('MainController', function($scope) {
-  $scope.range = 10;
+  $scope.lower_bound = 2;
+  $scope.upper_bound = 10;
 
   $scope.getNumber = function(num) {
     return new Array(num);
