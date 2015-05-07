@@ -1,1 +1,7 @@
-{{test}}
+<div id="config-form">
+    <input placeholder="Upper range" type="number" ng-model="range"/>
+</div>
+
+<div id="spiral">
+    <div class="item" ng-repeat="i in getNumber(range) track by $index" ng-class="{prime: checkPrime($index+1)}">{{$index + 1}}</div>
+</div>
