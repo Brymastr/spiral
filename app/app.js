@@ -22,7 +22,7 @@ app.controller('MainController', function($scope) {
   };
 
   $scope.positionDiv = function(num) {
-
+    if(num == 1) return;
     // Closest odd square root
     var closestRoot = Math.ceil(Math.sqrt(num));
     if(closestRoot % 2 == 0 )
