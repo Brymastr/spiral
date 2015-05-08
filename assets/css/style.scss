@@ -1,3 +1,5 @@
+@import 'mixins';
+
 body, html {
   height: 100%;
   margin: 0;
@@ -10,7 +12,8 @@ body, html {
 .flex-container {
   height: 100%;
   display: flex;
-  align-items: center;
+  flex-wrap: nowrap;
+  align-items: baseline;
   justify-content: center;
 }
 
@@ -18,18 +21,15 @@ body, html {
   width: 40px;
   height: 40px;
   background: #f1f1f1;
-  margin: 2px;
+  margin-left: -40px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   cursor: default;
 
-  -webkit-transition: background .3s;
-  -moz-transition: background .3s;
-  -ms-transition: background .3s;
-  -o-transition: background .3s;
-  transition: background .3s;
+  $properties: 'background-color';
+  @include transition($properties, 0.3s);
 
   display: flex;
   align-items: center;
@@ -38,6 +38,10 @@ body, html {
   &:hover {
     background: #e2e2e2;
   }
+
+  align-self: center;
+  flex-grow: 1;
+
 }
 
 .prime {

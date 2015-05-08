@@ -1,7 +1,7 @@
 var app = angular.module('spiral', []);
 
 app.controller('MainController', function($scope) {
-  $scope.lower_bound = 2;
+  $scope.lower_bound = 1;
   $scope.upper_bound = 10;
 
   $scope.getNumber = function(num) {
@@ -20,4 +20,33 @@ app.controller('MainController', function($scope) {
     }
     return true;
   };
+
+  $scope.positionDiv = function(num) {
+
+    var closestSquare = Math.ceil(Math.sqrt(num));
+    if(closestSquare % 2 == 0 )
+      closestSquare++;
+    console.log(closestSquare);
+
+    //var x = ;
+    //var y = ;
+
+
+    translate($('.item:nth-of-type(' + num + ')').nextAll(), 1, 0);
+
+  }
 });
+
+
+function translate(item, x, y) {
+  item.css({position: 'relative'});
+
+  item.animate({
+    left: units(x),
+    top: units(-y)
+  }, 0);
+}
+
+function units(num) {
+  return '' + (num * 44);
+};

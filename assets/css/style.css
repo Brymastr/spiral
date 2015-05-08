@@ -8,27 +8,30 @@ body, html {
 .flex-container {
   height: 100%;
   display: flex;
-  align-items: center;
+  flex-wrap: nowrap;
+  align-items: baseline;
   justify-content: center; }
 
 .item {
   width: 40px;
   height: 40px;
   background: #f1f1f1;
-  margin: 2px;
+  margin-left: -40px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   cursor: default;
-  -webkit-transition: background .3s;
-  -moz-transition: background .3s;
-  -ms-transition: background .3s;
-  -o-transition: background .3s;
-  transition: background .3s;
+  -webkit-transition:  0.3s;
+  -moz-transition:  0.3s;
+  -ms-transition:  0.3s;
+  -o-transition:  0.3s;
+  transition:  0.3s;
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  align-self: center;
+  flex-grow: 1; }
   .item:hover {
     background: #e2e2e2; }
 

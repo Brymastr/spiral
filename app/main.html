@@ -1,3 +1,8 @@
-<div id="spiral">
-    <div class="item flex-item" ng-repeat="i in getNumber(upper_bound-lower_bound +1) track by $index" ng-class="{prime: checkPrime($index + lower_bound)}">{{$index + lower_bound}}</div>
+<div id="spiral" class="flex-container">
+    <div class="item"
+         ng-repeat="i in getNumber(upper_bound-lower_bound +1) track by $index"
+         ng-class="{prime: checkPrime($index + lower_bound)}"
+         ng-init="positionDiv($index + 1)">
+        {{$index + lower_bound}}
+    </div>
 </div>
