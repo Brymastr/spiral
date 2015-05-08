@@ -80,15 +80,15 @@ app.controller('MainController', function($scope) {
     } else if(Math.abs(num - lowerLeft) <= delta) {
       console.log(num + ' is closest to lower left corner');
       if(Math.abs(num - neutralXLower) != 0) x = -1;
-      Math.abs(num - neutralXLower) > delta ? x *= Math.abs(num - neutralXLower + 1) : x *=  delta;
+      Math.abs(num - neutralXLower) < delta ? x *= Math.abs(num - neutralXLower + 1) : x *=  delta;
       if(Math.abs(num - neutralYLeft) != 0) y = -1;
-      Math.abs(num - neutralYLeft) > delta ? y *= Math.abs(num - neutralYLeft) : y *=  delta;
+      Math.abs(num - neutralYLeft) < delta ? y *= Math.abs(num - neutralYLeft) : y *=  delta;
     // If closest to upper left
     } else if(Math.abs(num - upperLeft) <= delta) {
       console.log(num + ' is closest to upper left corner');
       Math.abs(num - neutralXUpper) != 0 ? x = -1 : x = 0;
-      Math.abs(num - neutralXUpper) > delta ? x *= Math.abs(num - neutralXUpper) : x *=  delta;
-      Math.abs(num - neutralYLeft) > delta ? y = Math.abs(num - neutralYLeft + 1) : y =  delta;
+      Math.abs(num - neutralXUpper) < delta ? x *= Math.abs(num - neutralXUpper) : x *=  delta;
+      Math.abs(num - neutralYLeft) < delta ? y = Math.abs(num - neutralYLeft + 1) : y =  delta;
     // If closest to upper right
     } else {
       console.log(num + ' is closest to upper right corner');
