@@ -43,7 +43,7 @@ app.controller('MainController', function($scope) {
     //console.log('delta: ' + delta);
     //console.log('numsInSquare: ' + numsInSquare);
 
-    var x, y, neutralXUpper, neutralXLower, neutralYLeft, neutralYRight;
+    var x, y, neutralXUpper, neutralXLower, neutralYLeft, neutralYRight = 0;
 
     // The points that determine if the x or y value will be negative or positive
     neutralXUpper = closestSquare - delta - (numsInSquare / 2);
@@ -86,14 +86,14 @@ app.controller('MainController', function($scope) {
     // If closest to upper left
     } else if(Math.abs(num - upperLeft) <= delta) {
       console.log(num + ' is closest to upper left corner');
-      if(Math.abs(num - neutralXUpper) != 0) x = -1;
+      Math.abs(num - neutralXUpper) != 0 ? x = -1 : x = 0;
       Math.abs(num - neutralXUpper) > delta ? x *= Math.abs(num - neutralXUpper) : x *=  delta;
       Math.abs(num - neutralYLeft) > delta ? y = Math.abs(num - neutralYLeft + 1) : y =  delta;
     // If closest to upper right
     } else {
       console.log(num + ' is closest to upper right corner');
-      Math.abs(num - neutralXUpper) > delta ? x = Math.abs(num - neutralXUpper) : x =  delta;
-      Math.abs(num - neutralYRight) > delta ? y = Math.abs(num - neutralYRight) : y =  delta;
+      Math.abs(num - neutralXUpper) < delta ? x = Math.abs(num - neutralXUpper) : x =  delta;
+      Math.abs(num - neutralYRight) < delta ? y = Math.abs(num - neutralYRight) : y =  delta;
     }
 
     console.log('x trans: ' + x);
@@ -111,9 +111,9 @@ function translate(item, x, y) {
   item.animate({
     left: units(x),
     top: units(-y)
-  }, 0);
+  }, 100);
 }
 
 function units(num) {
   return '' + (num * 44);
-};
+}
