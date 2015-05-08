@@ -2,7 +2,7 @@ var app = angular.module('spiral', []);
 
 app.controller('MainController', function($scope) {
   $scope.lower_bound = 1;
-  $scope.upper_bound = 10;
+  $scope.upper_bound = 2;
 
   $scope.getNumber = function(num) {
     return new Array(num);
@@ -32,10 +32,16 @@ app.controller('MainController', function($scope) {
     var closestSquare = Math.pow(closestRoot, 2);
 
     // Distance away from the center element (1) in imaginary squares
-    var delta = (closestRoot / 2) + 0.5;
+    var delta = (closestRoot / 2) - 0.5;
 
     // Amount of numbers in each imaginary square
     var numsInSquare = delta * 8;
+
+    console.log('num: ' + num);
+    //console.log('closestRoot: ' + closestRoot);
+    //console.log('closestSquare: ' + closestSquare);
+    //console.log('delta: ' + delta);
+    //console.log('numsInSquare: ' + numsInSquare);
 
     var x, y, neutralXUpper, neutralXLower, neutralYLeft, neutralYRight;
 
@@ -47,38 +53,52 @@ app.controller('MainController', function($scope) {
 
     // Corners of each imaginary square
     upperLeft = closestSquare - (numsInSquare / 2);
-    upperRight = upperLeft - closestRoot - 1;
-    lowerLeft = closestSquare - closestRoot - 1;
+    upperRight = upperLeft - closestRoot + 1;
+    lowerLeft = closestSquare - closestRoot + 1;
     lowerRight = closestSquare;
 
+    //console.log('neutralXUpper: ' + neutralXUpper);
+    //console.log('neutralXLower: ' + neutralXLower);
+    //console.log('neutralYLeft: ' + neutralYLeft);
+    //console.log('neutralYRight: ' + neutralYRight);
+    //console.log('upperRight: ' + upperRight);
+    //console.log('upperLeft: ' + upperLeft);
+    //console.log('lowerRight: ' + lowerRight);
+    //console.log('lowerLeft: ' + lowerLeft);
+    console.log('num - lowerRight: ' + Math.abs(num - lowerRight));
     // If closest to lower right and bottom
     if(Math.abs(num - lowerRight) <= delta) {
+      console.log(num + ' is closest to lower right and bottom');
       x = Math.abs(num - neutralXLower);
       y = delta * -1;
     // If closest to lower right and right
-    } else if(Math.abs(num - lowerRight) > numsInSquare - delta) {
+    } else if(Math.abs(num - lowerRight) > numsInSquare - 1 - delta) {
+      console.log(num + ' is closest to lower right and right');
       x = delta;
       y = Math.abs(num - neutralYRight) * -1;
     // If closest to lower left
     } else if(Math.abs(num - lowerLeft) <= delta) {
+      console.log(num + ' is closest to lower left corner');
       x = -1;
       Math.abs(num - neutralXLower) > delta ? x *= Math.abs(num - neutralXLower) : x *=  delta;
       y = -1;
       Math.abs(num - neutralYLeft) > delta ? y *= Math.abs(num - neutralYLeft) : y *=  delta;
     // If closest to upper left
     } else if(Math.abs(num - upperLeft) <= delta) {
+      console.log(num + ' is closest to upper left corner');
       x = -1;
       Math.abs(num - neutralXUpper) > delta ? x *= Math.abs(num - neutralXUpper) : x *=  delta;
       y = 1;
       Math.abs(num - neutralYLeft) > delta ? y *= Math.abs(num - neutralYLeft) : y *=  delta;
     // If closest to upper right
     } else {
-      x = 1;
-      Math.abs(num - neutralXUpper) > delta ? x *= Math.abs(num - neutralXUpper) : x *=  delta;
-      y = 1;
-      Math.abs(num - neutralYRight) > delta ? y *= Math.abs(num - neutralYRight) : y *=  delta;
+      console.log(num + ' is closest to upper right corner');
+      Math.abs(num - neutralXUpper) > delta ? x = Math.abs(num - neutralXUpper + 1) : x =  delta;
+      Math.abs(num - neutralYRight) > delta ? y = Math.abs(num - neutralYRight) : y =  delta;
     }
 
+    console.log('x trans: ' + x);
+    console.log('y trans: ' + y);
     // Finally translate the item to it's final destination in the spiral
     translate($('.item:nth-of-type(' + num + ')'), x, y);
 
