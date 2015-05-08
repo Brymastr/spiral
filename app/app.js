@@ -2,7 +2,7 @@ var app = angular.module('spiral', []);
 
 app.controller('MainController', function($scope) {
   $scope.lower_bound = 1;
-  $scope.upper_bound = 2;
+  $scope.upper_bound = 4;
 
   $scope.getNumber = function(num) {
     return new Array(num);
@@ -65,7 +65,7 @@ app.controller('MainController', function($scope) {
     //console.log('upperLeft: ' + upperLeft);
     //console.log('lowerRight: ' + lowerRight);
     //console.log('lowerLeft: ' + lowerLeft);
-    console.log('num - lowerRight: ' + Math.abs(num - lowerRight));
+    console.log('num - neutralXUpper: ' + Math.abs(num - neutralXUpper));
     // If closest to lower right and bottom
     if(Math.abs(num - lowerRight) <= delta) {
       console.log(num + ' is closest to lower right and bottom');
@@ -86,10 +86,10 @@ app.controller('MainController', function($scope) {
     // If closest to upper left
     } else if(Math.abs(num - upperLeft) <= delta) {
       console.log(num + ' is closest to upper left corner');
-      x = -1;
+      if(Math.abs(num - neutralXUpper) != 0) x = -1;
       Math.abs(num - neutralXUpper) > delta ? x *= Math.abs(num - neutralXUpper) : x *=  delta;
       y = 1;
-      Math.abs(num - neutralYLeft) > delta ? y *= Math.abs(num - neutralYLeft) : y *=  delta;
+      Math.abs(num - neutralYLeft) > delta ? y *= Math.abs(num - neutralYLeft + 1) : y *=  delta;
     // If closest to upper right
     } else {
       console.log(num + ' is closest to upper right corner');
