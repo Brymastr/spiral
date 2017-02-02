@@ -31,7 +31,6 @@ function draw() {
     for(j = 0; j < 2; j++) {            // Change direction every two loops of j
       for(k = 0; k < increment; k++) {  // increases by one every two loops of j
         translate = {x: xTranslation[direction % 4] * squareSize * spacing, y: yTranslation[direction % 4] * squareSize * spacing}
-        console.log(xTranslation[direction % 4], yTranslation[direction % 4], i)
         ctx.save();
         ctx.translate(translate.x, translate.y);
         PRIMES ? isPrime(i) && ctx.fillRect(0, 0, squareSize, squareSize) : ctx.fillRect(0, 0, squareSize, squareSize);
