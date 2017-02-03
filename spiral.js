@@ -1,26 +1,87 @@
-// Number of squares total
-const SQUARES = 9025;
-const START = 1;
-// Side dimensions if 
-const DIMENSION = Math.ceil(Math.sqrt(SQUARES));
-const SHOW_NUMBERS = false;
-const PRIMES = true;
+Vue.component('spiral', {
+  template: `
+    <div class="flex-container">
+      <canvas id="canvas"></canvas>
+    </div>`
+});
+
+// Vue.js
+var app = new Vue({
+  el: '#spiral',
+  data: function() {
+    return {
+      color: 'blue',
+      primes: true,
+      width: 0,
+      ctx: null,
+      windowWidth: 0,
+      windowHeight: 0
+    }
+    
+  },
+  methods: {
+    drawCanvas: function() {
+      draw(this.color, this.ctx);
+    },
+    getWindowWidth(event) {
+      this.windowWidth = document.documentElement.clientWidth;
+    },
+    getWindowHeight(event) {
+      this.windowHeight = document.documentElement.clientHeight;
+    }
+  },
+  watch: {
+    color: function(newVal, oldVal) {
+      this.ctx.fillStyle = newVal;
+    },
+    windowWidth: function(newVal, oldVal) {
+      this.drawCanvas(this.color, this.ctx);
+    },
+    windowHeight: function(newVal, oldVal) {
+      this.drawCanvas(this.color, this.ctx);
+    }
+  },
+  mounted: function() {
+    this.ctx = document.getElementById('canvas').getContext('2d');
+    this.$nextTick(function() {
+      window.addEventListener('resize', this.getWindowWidth);
+      window.addEventListener('resize', this.getWindowHeight);
+      this.getWindowWidth();
+      this.getWindowHeight();
+    })
+  },
+  beforeDestroy: function() {
+    window.removeEventListener('resize', this.getWindowWidth);
+    window.removeEventListener('resize', this.getWindowHeight);
+  }
+});
+
+
+
 
 // Draw the canvas
-function draw() {
-  var ctx = document.getElementById('canvas').getContext('2d');
+function draw(color, ctx) {
+  // Number of squares total
+  const SQUARES = 9025;
+  const START = 1;
+  // Side dimensions if 
+  const DIMENSION = Math.ceil(Math.sqrt(SQUARES));
+  const SHOW_NUMBERS = false;
+  const PRIMES = true;
+  
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
-  const spacing = 1.1;
+  const spacing = 1;
   var squareSize = (screenWidth < screenHeight ? screenWidth : screenHeight) / (DIMENSION * spacing);  
   ctx.canvas.width = ctx.canvas.height = screenWidth < screenHeight ? screenWidth : screenHeight
 
-  ctx.fillStyle = 'blue';
   var i = START;
   var increment = 1;
   var direction = 0;
   var xTranslation = [1, 0, -1, 0];
   var yTranslation = [0, -1, 0, 1];
+
+  ctx.fillStyle = color;
 
   ctx.translate((DIMENSION - 1) / 2 * (spacing * squareSize), (DIMENSION - 1) / 2 * (spacing * squareSize))
   if(SHOW_NUMBERS) ctx.fillText(i, 0, 0);
@@ -45,15 +106,6 @@ function draw() {
   }
 
 }
-
-var addEvent = function(object, type, callback) {
-  if(!object) return;
-  if(object.addEventListener) object.addEventListener(type, callback, false);
-  else if(object.attachEvent) object.attachEvent('on' + type, callback);
-  else object['on'+type] = callback;
-};
-window.onload = draw();
-addEvent(window, 'resize', draw);
 
 function isPrime(number) {
   for(var i = 2; i < number; i++) {
