@@ -15,3 +15,19 @@ html, body {
   justify-content: center;
   display: flex;  
 }
+
+#controls {
+  position: absolute;
+}
+
+#numberOfSquares {
+  
+}
+
+#startingNumber {
+
+}
+
+#squareColor {
+
+}
