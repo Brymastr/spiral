@@ -9,7 +9,11 @@
 <body>
   <div id="spiral">
 
-    <controls></controls>
+    <div id="controls">
+      <input type="number" placeholder="Squares" v-model="squares"/>
+      <input type="number" placeholder="Starting number" v-model="start"/>
+      <input type="text" placeholder="Color" v-model="color"/>
+    </div>
 
     <spiral></spiral>
   </div>
