@@ -13,3 +13,10 @@
   color: #2c3e50;
 }
 </style>
+
+<style>
+html,
+body {
+  margin: 0;
+}
+</style>
