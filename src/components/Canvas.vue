@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import primes from 'raw-loader!@/assets/primes.dat';
-import pako from 'pako';
 export default {
   name: 'Canvas',
   props: {},
@@ -21,6 +19,12 @@ export default {
     ctx: null,
   }),
   methods: {
+    getPrimes: async function() {
+      const result = await fetch('http://192.168.0.119:3000');
+      console.log(result);
+      const primes = await result.text();
+      console.log(primes.length);
+    },
     getWindowWidth: function() {
       this.windowWidth = document.documentElement.clientWidth;
     },
@@ -63,6 +67,7 @@ export default {
     },
   },
   mounted: function() {
+    this.getPrimes();
     this.$nextTick(function() {
       window.addEventListener('resize', this.getWindowWidth);
       window.addEventListener('resize', this.getWindowHeight);
