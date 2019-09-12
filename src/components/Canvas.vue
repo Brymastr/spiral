@@ -3,7 +3,8 @@
 </template>
 
 <script>
-import primes from 'raw-loader!@/assets/primes.txt';
+import primes from 'raw-loader!@/assets/primes.dat';
+import pako from 'pako';
 export default {
   name: 'Canvas',
   props: {},
@@ -11,8 +12,8 @@ export default {
     color: 'green',
     zoom: 1,
     start: 1,
-    count: 10000000,
-    size: 0.8,
+    count: 1000000,
+    size: 1,
 
     windowWidth: 0,
     windowHeight: 0,
