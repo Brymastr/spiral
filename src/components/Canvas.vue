@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 export default {
   name: 'Canvas',
   props: {},
@@ -10,29 +11,28 @@ export default {
     color: 'green',
     zoom: 1,
     start: 1,
-    count: 1000000,
-    size: 1,
+    count: 500000,
+    size: 3,
 
     windowWidth: 0,
     windowHeight: 0,
     canvas: null,
     ctx: null,
+    primes: '',
   }),
+  computed: {
+    ...mapState('Primes', ['primes']),
+  },
   methods: {
-    getPrimes: async function() {
-      const result = await fetch('http://192.168.0.119:3000');
-      console.log(result);
-      const primes = await result.text();
-      console.log(primes.length);
-    },
+    ...mapActions('Primes', ['getPrimes', 'isPrime']),
     getWindowWidth: function() {
       this.windowWidth = document.documentElement.clientWidth;
     },
+    isPrime(num) {
+      return this.primes[num - 1] == '1';
+    },
     getWindowHeight: function() {
       this.windowHeight = document.documentElement.clientHeight;
-    },
-    isPrime: function(num) {
-      return primes[num - 1] == '1';
     },
     draw: function() {
       this.canvas.width = this.windowWidth;
@@ -57,17 +57,19 @@ export default {
           else if (directions[direction] === 'u') currentY -= this.size;
           else if (directions[direction] === 'l') currentX -= this.size;
           else if (directions[direction] === 'd') currentY += this.size;
-          if (this.isPrime(runningCount))
-            this.ctx.fillRect(currentX, currentY, this.size, this.size);
           if (runningCount++ === this.count) break countReached;
+          if (this.isPrime(runningCount)) {
+            this.ctx.fillRect(currentX, currentY, this.size, this.size);
+          }
+          // this.ctx.fillText(runningCount, currentX + 5, currentY + 10)
         }
         if (++changeDistance % 2 === 0) maxDistance++;
         if (++direction === 4) direction = 0;
       }
     },
   },
-  mounted: function() {
-    this.getPrimes();
+  mounted: async function() {
+    this.primes = await this.getPrimes();
     this.$nextTick(function() {
       window.addEventListener('resize', this.getWindowWidth);
       window.addEventListener('resize', this.getWindowHeight);

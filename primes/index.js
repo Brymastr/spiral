@@ -8,6 +8,7 @@ app.get('/', (req, res) => {
   const readStream = fs.createReadStream('./primes.dat.gz');
   res.setHeader('Content-Type', 'text/plain');
   res.setHeader('Content-Encoding', 'gzip');
+  res.setHeader('Cache-Control', 'max-age=86400');
   readStream.pipe(res);
 });
 
