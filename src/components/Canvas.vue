@@ -8,12 +8,6 @@ export default {
   name: 'Canvas',
   props: {},
   data: () => ({
-    color: 'green',
-    zoom: 1,
-    start: 1,
-    count: 500000,
-    size: 3,
-
     windowWidth: 0,
     windowHeight: 0,
     canvas: null,
@@ -22,6 +16,33 @@ export default {
   }),
   computed: {
     ...mapState('Primes', ['primes']),
+    ...mapState('Control', ['zoom', 'start', 'end', 'color']),
+    size() {
+      const minSize = 0.5;
+      const maxSize = 20;
+      const minZoom = 1;
+      const maxZoom = 9;
+      let zoom = this.zoom;
+      if (this.zoom < minZoom) zoom = minZoom;
+      else if (this.zoom > maxZoom) zoom = maxZoom;
+      const percent = (zoom - minZoom) / (maxZoom - minZoom);
+      const size = percent * (maxSize - minSize) + minSize;
+      return size;
+    },
+  },
+  watch: {
+    zoom() {
+      this.draw();
+    },
+    color() {
+      this.draw();
+    },
+    start() {
+      this.draw();
+    },
+    end() {
+      this.draw();
+    },
   },
   methods: {
     ...mapActions('Primes', ['getPrimes', 'isPrime']),
@@ -47,7 +68,7 @@ export default {
       let direction = 0;
       let maxDistance = 1;
       let changeDistance = 0;
-      let runningCount = 1;
+      let runningCount = this.start;
 
       this.ctx.fillStyle = this.color;
 
@@ -57,11 +78,11 @@ export default {
           else if (directions[direction] === 'u') currentY -= this.size;
           else if (directions[direction] === 'l') currentX -= this.size;
           else if (directions[direction] === 'd') currentY += this.size;
-          if (runningCount++ === this.count) break countReached;
+          if (runningCount++ >= this.end) break countReached;
           if (this.isPrime(runningCount)) {
             this.ctx.fillRect(currentX, currentY, this.size, this.size);
           }
-          // this.ctx.fillText(runningCount, currentX + 5, currentY + 10)
+          // this.ctx.fillText(runningCount, currentX + 5, currentY + 10);
         }
         if (++changeDistance % 2 === 0) maxDistance++;
         if (++direction === 4) direction = 0;

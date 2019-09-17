@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersist from 'vuex-persist';
 import Primes from './modules/primes';
+import Control from './modules/control';
 // import AsyncComputed from 'vue-async-computed';
 // import appSettings from './modules/appSettings';
 // import fiscalDates from './modules/fiscalDates';
@@ -21,6 +22,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     Primes,
+    Control,
   },
   plugins: [vuexPersist.plugin],
 });
