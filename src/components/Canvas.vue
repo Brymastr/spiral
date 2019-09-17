@@ -4,6 +4,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+
 export default {
   name: 'Canvas',
   props: {},
@@ -21,7 +22,7 @@ export default {
       const maxSize = 20;
       const minZoom = 1;
       const maxZoom = 9;
-      let zoom = this.zoom;
+      let { zoom } = this;
       if (this.zoom < minZoom) zoom = minZoom;
       else if (this.zoom > maxZoom) zoom = maxZoom;
       const percent = (zoom - minZoom) / (maxZoom - minZoom);
@@ -71,6 +72,7 @@ export default {
 
       this.ctx.fillStyle = this.color;
 
+      /* eslint-disable no-labels, no-constant-condition, no-restricted-syntax */
       countReached: while (true) {
         for (let i = 0; i < maxDistance; i++) {
           if (directions[direction] === 'r') currentX += this.size;
@@ -86,6 +88,7 @@ export default {
         if (++changeDistance % 2 === 0) maxDistance++;
         if (++direction === 4) direction = 0;
       }
+      /* eslint-enable no-labels, no-constant-condition, no-restricted-syntax */
     },
   },
   mounted: async function() {
