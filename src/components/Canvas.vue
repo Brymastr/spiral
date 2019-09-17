@@ -15,7 +15,6 @@ export default {
     primes: '',
   }),
   computed: {
-    ...mapState('Primes', ['primes']),
     ...mapState('Control', ['zoom', 'start', 'end', 'color']),
     size() {
       const minSize = 0.5;

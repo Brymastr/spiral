@@ -1,6 +1,7 @@
+const API = process.env.VUE_APP_PRIMES_API;
 const actions = {
-  async getPrimes({ state, commit }) {
-    const primesResult = await fetch('http://192.168.0.119:3000');
+  async getPrimes() {
+    const primesResult = await fetch(API);
     const primes = await primesResult.text();
     return primes;
   },
@@ -10,8 +11,7 @@ const mutations = {};
 
 const getters = {};
 
-const state = {
-};
+const state = {};
 
 export default {
   namespaced: true,

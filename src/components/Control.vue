@@ -4,27 +4,19 @@
     <div class="body">
       <div>
         <label>Zoom</label>
-        <input
-          id="zoom"
-          class="slider"
-          type="range"
-          min="1"
-          max="9"
-          :value="zoom"
-          @input="updateZoom"
-        />
+        <input class="slider" type="range" min="1" max="9" :value="zoom" @input="updateZoom" />
       </div>
       <div>
         <label>Starting Number</label>
-        <input id="start" type="number" min="1" max="100000" :value="start" @input="updateStart" />
+        <input type="number" min="1" max="100000" :value="start" @input="updateStart" />
       </div>
       <div>
         <label>Ending Number</label>
-        <input id="end" type="number" min="14" max="32452843" :value="end" @input="updateEnd" />
+        <input type="number" min="14" max="32452843" :value="end" @input="updateEnd" />
       </div>
       <div>
         <label>Color</label>
-        <input id="color" type="color" :value="color" @input="updateColor" />
+        <input type="color" :value="color" @input="updateColor" />
       </div>
     </div>
   </div>
@@ -32,6 +24,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+
 export default {
   name: 'Control',
   props: {},
@@ -59,7 +52,7 @@ export default {
         .style.setProperty('--canvas-color', this.color);
     },
   },
-  mounted: function() {
+  mounted() {
     this.setSliderColor();
   },
 };
@@ -72,15 +65,31 @@ export default {
   top: 10px;
   left: 10px;
   background-color: white;
-  box-shadow: 5px 5px 8px #768879;
+  box-shadow: 2px 2px 4px #929993;
   border-radius: 5px;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  --slider-height: 10px;
+  --slider-height: 15px;
   --input-width: 150px;
   --label-width: 150px;
-  --canvas-color: green;
+  --canvas-color: black;
+  opacity: 0.7;
+  transition: opacity 0.2s, box-shadow 0.2s;
+}
+
+input {
+  width: var(--input-width);
+}
+
+input[type='range'] {
+  width: calc(var(--input-width) + 5px);
+  margin-left: 0;
+}
+
+#control:hover {
+  opacity: 1;
+  box-shadow: 5px 5px 8px #768879;
 }
 
 h1 {
@@ -93,7 +102,7 @@ h1 {
 }
 
 .body div {
-  padding: 5px 0;
+  padding: 7px 0;
 }
 
 label {
@@ -101,38 +110,35 @@ label {
   min-width: var(--label-width);
 }
 
-/* The slider itself */
 .slider {
-  -webkit-appearance: none; /* Override default CSS styles */
+  -webkit-appearance: none;
   appearance: none;
-  width: var(--input-width); /* Full-width */
-  height: var(--slider-height); /* Specified height */
-  background: #d3d3d3; /* Grey background */
-  outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  width: var(--input-width);
+  height: var(--slider-height);
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
   transition: opacity 0.2s;
 }
 
-/* Mouse-over effects */
 .slider:hover {
-  opacity: 1; /* Fully shown on mouse-over */
+  opacity: 1;
 }
 
-/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
 .slider::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+  -webkit-appearance: none;
   appearance: none;
-  width: var(--slider-height); /* Set a specific slider handle width */
-  height: var(--slider-height); /* Slider handle height */
-  background-color: var(--canvas-color); /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  width: var(--slider-height);
+  height: var(--slider-height);
+  background-color: var(--canvas-color);
+  cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
-  width: var(--slider-height); /* Set a specific slider handle width */
-  height: var(--slider-height); /* Slider handle height */
-  background-color: var(--canvas-color); /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  width: var(--slider-height);
+  height: var(--slider-height);
+  background-color: var(--canvas-color);
+  cursor: pointer;
 }
 </style>

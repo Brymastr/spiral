@@ -1,15 +1,15 @@
 const actions = {
   setZoom({ commit }, zoom) {
-    commit('setZoom', zoom)
+    commit('setZoom', zoom);
   },
   setColor({ commit }, color) {
-    commit('setColor', color)
+    commit('setColor', color);
   },
   setStart({ commit }, start) {
-    commit('setStart', start)
+    commit('setStart', start);
   },
   setEnd({ commit }, end) {
-    commit('setEnd', end)
+    commit('setEnd', end);
   },
 };
 
@@ -34,7 +34,7 @@ const state = {
   zoom: 5,
   start: 1,
   end: 50000,
-  color: 'green',
+  color: 'black',
 };
 
 export default {
