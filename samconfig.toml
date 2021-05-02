@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "prime-spiral"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-9hep6u2wm2mb"
+s3_prefix = "prime-spiral"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "HostedZoneId=\"Z07049331HHRI0OG4G1H4\" DomainName=\"spiral.dorsay.dev\""

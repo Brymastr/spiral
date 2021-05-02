@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+export AWS_PROFILE=personal
+export AWS_REGION=us-east-1
+export BUCKET_NAME=prime-spiral-websitebucket-84auzyu8h36i
+export DISTRIBUTION_ID=E1ASZMV91BRMBE
+
+template() {
+    echo "Building and deploying template"
+
+    sam build
+
+    sam deploy
+}
+
+web() {
+    echo "Building and deploying website"
+    cd web
+    npm run build
+    aws s3 sync --cache-control 'max-age=604800' --exclude index.html dist s3://$BUCKET_NAME
+    aws s3 sync --cache-control 'no-cache' dist s3://$BUCKET_NAME
+    aws cloudfront create-invalidation --distribution-id=$DISTRIBUTION_ID --paths /index.html /favicon.ico /assets/*
+}
+
+
+[[ -z $1 || "$1" == "api" ]] && template
+
+[[ -z $1 || "$1" == "web" ]] && web
