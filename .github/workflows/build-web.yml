@@ -12,9 +12,6 @@ env:
   BUCKET_NAME: wealth-for-ynab-prod-websitebucket-dkld2o1ahayi
   DISTRIBUTION_ID: EMT9APTKH2NL3
   
-defaults:
-  run:
-    working-directory: web
 
 jobs:
   build-and-deploy:
@@ -33,7 +30,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Install
-        run: npm install
+        run: npm ci
 
       - name: Build
         run: npm run build
