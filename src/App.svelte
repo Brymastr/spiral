@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Canvas from "./lib/Canvas.svelte";
-  import Control from "./lib/Control.svelte";
-  import { onMount } from "svelte";
+  import Canvas from './lib/Canvas.svelte';
+  import Control from './lib/Control.svelte';
+  import { onMount } from 'svelte';
 
   interface StorageData {
     zoom: number;
@@ -10,20 +10,20 @@
     color: string;
   }
 
-  const localStorageKey = "spiral.dorsay.dev";
+  const localStorageKey = 'spiral.dorsay.dev';
 
   const defaultData: StorageData = {
     zoom: 7,
     start: 1,
     end: 1000,
-    color: "#23b3b0",
+    color: '#23b3b0',
   };
 
   let zoom = defaultData.zoom;
   let start = defaultData.start;
   let end = defaultData.end;
   let color = defaultData.color;
-  let primes = "01101010001010";
+  let primes = '01101010001010';
   let ready = false;
 
   onMount(async () => {
@@ -32,7 +32,7 @@
       localData = setStorage(defaultData);
     }
 
-    const allPrimesResponse = await fetch("primes.dat.gz");
+    const allPrimesResponse = await fetch('primes.dat');
     const allPrimes = await allPrimesResponse.text();
 
     const newData: StorageData = JSON.parse(localData);
@@ -70,7 +70,7 @@
     height: 100vh;
     width: 100vw;
 
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #1b2631;
