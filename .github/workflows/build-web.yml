@@ -9,8 +9,8 @@ on:
       - .github/workflows/build-web.yml
 
 env:
-  BUCKET_NAME: wealth-for-ynab-prod-websitebucket-dkld2o1ahayi
-  DISTRIBUTION_ID: EMT9APTKH2NL3
+  BUCKET_NAME: prime-spiral-websitebucket-84auzyu8h36i
+  DISTRIBUTION_ID: E1ASZMV91BRMBE
   
 
 jobs:
@@ -39,4 +39,4 @@ jobs:
         run: |
           aws s3 sync --cache-control 'max-age=604800' --exclude index.html dist s3://$BUCKET_NAME
           aws s3 sync --cache-control 'no-cache' dist s3://$BUCKET_NAME
-          aws cloudfront create-invalidation --distribution-id=$DISTRIBUTION_ID --paths / /primes.dat /js/* /css/* /img/*
+          aws cloudfront create-invalidation --distribution-id=$DISTRIBUTION_ID --paths / /js/* /css/* /img/*

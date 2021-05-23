@@ -9,7 +9,6 @@ on:
       - samconfig.toml
       - .github/workflows/build-infra.yml
 
-
 jobs:
   deploy-template:
     runs-on: ubuntu-latest
